@@ -12,7 +12,7 @@
 ![fluxo](https://enzochang.com/rabbitmq-introduction/rabbitmq_architecture.png)
 O modelo mais amplamente utilizado para implementar o RabbitMQ é o AMQP 0-9-1 (Advanced Message Queuing Protocol). O fluxo desse modelo se inicia com a publicação das mensagens, que são encaminhadas para as exchanges. Estas, por sua vez, distribuem as mensagens para as filas, as quais podem ter regras de ligação específicas ou não. Essas filas estão conectadas aos consumidores, que processam as mensagens de acordo com suas necessidades.
 ##### **DICIONÁRIO**
-* Produtor (Producer): Encarregado de criar o conteúdo ou mensagem.**
+* Produtor (Producer): Encarregado de criar o conteúdo ou mensagem.
 * Exchange (Exchanger): Comparável a uma agência dos correios, pois é responsável por distribuir (encaminhar) as mensagens para as filas.
 * Rotas (Routes): São os caminhos que conectam as exchanges às queues. Essas rotas podem ser específicas, com identificadores únicos, ou livres.
 * Fila (Queue): Também conhecida como fila, é responsável por entregar as mensagens aos consumidores ou armazená-las antes do processamento.
@@ -26,6 +26,13 @@ O modelo mais amplamente utilizado para implementar o RabbitMQ é o AMQP 0-9-1 (
 * Topic: Similar ao comportamento da Direct, mas as mensagens são encaminhadas com base em rotas definidas, tanto na mensagem quanto na associação da fila ao exchange. Diferentemente da Direct, a exchange tipo Topic tem uma característica padrão de receber cópias de todas as mensagens, independentemente da rota, tornando-a mais generalista.
 ![image](https://github.com/GabriellaFerr00/rabbitmq-project/assets/86236510/9e33dfee-76d2-42a7-a5ab-d01de1be52a1)
 * Headers: Este é o tipo menos utilizado de exchange. Seu comportamento difere dos outros tipos, pois não utiliza rotas (chaves) para vincular mensagens a filas específicas; em vez disso, as mensagens são enviadas utilizando informações no cabeçalho.
+================================================================================
+##### **PROPRIEDADES DAS QUEUES NO MODELO AMQP 0-9-1**
+* Nome
+* Durável (a fila sobreviverá à reinicialização do corretor)
+* Exclusivo (usado por apenas uma conexão e a fila será excluída quando essa conexão for fechada)
+* Exclusão automática (a fila que teve pelo menos um consumidor é excluída quando o último consumidor cancela a assinatura)
+* Argumentos (opcional; usados ​​por plug-ins e recursos específicos do corretor, como TTL de mensagem, limite de comprimento de fila, etc.)
 ================================================================================
 #### **PROJETO**
 ##### **Versões usadas**
@@ -54,7 +61,7 @@ LOMBOK                    | [LOMBOK](https://mvnrepository.com/artifact/org.proj
 #### **Para rodar o projeto localmente, siga este passo a passo:**
 * Clone o repositório do projeto para a sua máquina: [Clone HTTPS] https://github.com/GabriellaFerr00/rabbitmq-project.git.
 * Abra esse projeto na IDE que você preferir(No intellij ele automaticamente baixa as dependências e configurações necessárias para o projeto rodar)
-##### **OBS: Você vai abrir em uma aba o arquivo producer-service e em outra o consumer-service, pois, são projetos com finalidades diferentes, pois, o producer vai produzir a mensagem e o consumer consumir a mesma.**
+##### **OBS: Você vai abrir em uma aba o arquivo producer-service e em outra o consumer-service, pois, são projetos com finalidades diferentes, dessa forma o producer vai produzir a mensagem e o consumer consumir a mesma.**
 * Abrir o aplicativo do docker desktop, para conseguir subir o container
 * Navege pelas pastas até chegar na pasta do projeto e pelo CMD ou GIT escreva o comando "docker-compose up" para subir o container
 * Rode os seus projetos simultaneamente, com o botão direito do mouse em cima do ProducerServiceApplication e ConsumerServiceApplication clique em RUN ou em Ctrl+Shift+F10
