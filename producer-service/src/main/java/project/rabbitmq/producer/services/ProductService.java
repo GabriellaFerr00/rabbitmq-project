@@ -1,5 +1,6 @@
 package project.rabbitmq.producer.services;
 
+import dtos.ProductDTO;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +11,12 @@ import static constants.RabbitMQConstants.RK_PRODUCT_LOG;
 
 @Log4j2
 @Service
-public class StringService {
+public class ProductService {
     @Autowired
     private RabbitTemplate rabbitTemplate;
 
-    public void produce(String message){
-        log.info("Received message " + message);
-        rabbitTemplate.convertAndSend(EXG_NAME_MARKETPLACE, RK_PRODUCT_LOG, message);
+    public void createProduct(ProductDTO dto){
+        log.info("Sending a message to exchange " + dto.toString());
+        rabbitTemplate.convertAndSend(EXG_NAME_MARKETPLACE, RK_PRODUCT_LOG, dto);
     }
 }
